@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 7479815377851074283}
   - component: {fileID: 5189208321599311488}
   - component: {fileID: 1732046086965759305}
+  - component: {fileID: 4047578787199045737}
   m_Layer: 0
   m_Name: Patrol Enemy
   m_TagString: Untagged
@@ -161,3 +162,16 @@ MonoBehaviour:
   minSpeed: 1
   maxSpeed: 3
   startDirection: 1
+--- !u!114 &4047578787199045737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4549828653869207055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff542b4950e2734ab4bea12750e060f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Damage
+  damageAmount: 1
