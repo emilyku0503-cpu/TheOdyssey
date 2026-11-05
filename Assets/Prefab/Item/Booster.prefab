@@ -101,7 +101,6 @@ GameObject:
   - component: {fileID: 1507930323271114507}
   - component: {fileID: 4292868032924321302}
   - component: {fileID: 5147825280286446899}
-  - component: {fileID: 5487744601837762566}
   m_Layer: 0
   m_Name: Booster
   m_TagString: Untagged
@@ -159,17 +158,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   collectSound: {fileID: 8300000, guid: 751b31b6729176648a74410429602140, type: 3}
---- !u!114 &5487744601837762566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6990517655569902109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc6fc4ca0c8abc48833d635ca317bb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  speedMultiplier: 5
-  duration: 3

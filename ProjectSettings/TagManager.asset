@@ -8,6 +8,7 @@ TagManager:
   - Wood
   - Sand
   - Water
+  - JumpBooster
   layers:
   - Default
   - TransparentFX
