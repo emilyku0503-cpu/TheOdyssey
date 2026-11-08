@@ -182,7 +182,7 @@ MonoBehaviour:
   audioFadeDuration: 1
   dialogueCanvasGroup: {fileID: 812965123}
   dialogueFadeDuration: 1
-  nextSceneName: 
+  nextSceneName: Level
 --- !u!4 &29300897
 Transform:
   m_ObjectHideFlags: 0

@@ -3,18 +3,30 @@ using UnityEngine;
 
 public class LotusBlinkTrigger : MonoBehaviour
 {
-    public ScreenBlink screenBlink;
+    [Header("Screen Blink")]
+    [SerializeField] private ScreenBlink screenBlink;
+    [SerializeField] private float blinkCooldown = 3f;
 
-    private void OnTriggerEnter(Collider other)
+    private float nextBlinkTime;
+
+    private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("Touched by: " + other.name);
-        if (other.CompareTag("Player"))
+        PlayerHealth playerHealth =
+            other.GetComponentInParent<PlayerHealth>();
+
+        if (playerHealth == null)
+            return;
+
+        if (Time.time < nextBlinkTime)
+            return;
+
+        nextBlinkTime = Time.time + blinkCooldown;
+
+        Debug.Log("Lotus Blink Triggered!");
+
+        if (screenBlink != null)
         {
-            Debug.Log("Lotus Blink Triggered!");
-            if (screenBlink != null)
-            {
-                screenBlink.PlayBlink();
-            }
+            screenBlink.PlayBlink();
         }
     }
 }

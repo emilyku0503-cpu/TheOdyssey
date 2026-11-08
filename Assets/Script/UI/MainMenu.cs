@@ -56,7 +56,7 @@ public class MainMenu : MonoBehaviour
     {
         yield return StartCoroutine(FadeOut());
 
-        SceneManager.LoadScene("Level");
+        SceneManager.LoadScene("OpeningCutscene");
     }
 
     private IEnumerator OpenAboutPanelWithFade()

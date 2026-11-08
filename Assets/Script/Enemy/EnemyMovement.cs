@@ -3,47 +3,58 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public enum StartDirection
+    public enum StartPoint
     {
-        Left,
-        Right
+        PointA,
+        PointB
     }
 
-    [Header("Patrol Settings")]
-    [SerializeField] private float moveDistance = 3f;
+    [Header("Patrol Points")]
+    [SerializeField] private Transform pointA;
+    [SerializeField] private Transform pointB;
 
     [Header("Random Speed")]
     [SerializeField] private float minSpeed = 1f;
     [SerializeField] private float maxSpeed = 3f;
 
-    [Header("Starting Direction")]
-    [SerializeField] private StartDirection startDirection = StartDirection.Right;
+    [Header("Starting Point")]
+    [SerializeField] private StartPoint startPoint = StartPoint.PointA;
 
-    private Vector3 startPosition;
     private Vector3 segmentStart;
     private Vector3 segmentEnd;
 
     private float currentSpeed;
     private float elapsedTime;
     private float travelDuration;
-    private int direction;
 
-    void Start()
+    private bool movingToB;
+
+    private void Start()
     {
-        startPosition = transform.position;
+        if (pointA == null || pointB == null)
+        {
+            Debug.LogWarning("Patrol points are missing!");
+            enabled = false;
+            return;
+        }
 
+        // Randomize speed once
         currentSpeed = Random.Range(
             Mathf.Max(0.01f, Mathf.Min(minSpeed, maxSpeed)),
             Mathf.Max(0.01f, Mathf.Max(minSpeed, maxSpeed))
         );
 
-        direction = startDirection == StartDirection.Right ? 1 : -1;
+        // Set starting point
+        movingToB = startPoint == StartPoint.PointA;
 
-        segmentStart = startPosition;
+        transform.position = movingToB
+            ? pointA.position
+            : pointB.position;
+
         SetNextTarget();
     }
 
-    void Update()
+    private void Update()
     {
         elapsedTime += Time.deltaTime;
 
@@ -58,24 +69,41 @@ public class EnemyMovement : MonoBehaviour
             easedT
         );
 
+        // Switch direction after reaching destination
         if (t >= 1f)
         {
-            segmentStart = segmentEnd;
-            direction *= -1;
+            movingToB = !movingToB;
             SetNextTarget();
         }
     }
 
     private void SetNextTarget()
     {
-        segmentEnd = startPosition +
-            Vector3.right * direction * Mathf.Max(0.01f, moveDistance);
+        segmentStart = transform.position;
 
-        travelDuration = Vector3.Distance(
-            segmentStart,
-            segmentEnd
-        ) / currentSpeed;
+        segmentEnd = movingToB
+            ? pointB.position
+            : pointA.position;
+
+        travelDuration = Mathf.Max(
+            0.01f,
+            Vector3.Distance(segmentStart, segmentEnd)
+            / currentSpeed
+        );
 
         elapsedTime = 0f;
+    }
+
+    // Draw patrol path in Scene View
+    private void OnDrawGizmosSelected()
+    {
+        if (pointA == null || pointB == null)
+            return;
+
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawLine(pointA.position, pointB.position);
+        Gizmos.DrawWireSphere(pointA.position, 0.2f);
+        Gizmos.DrawWireSphere(pointB.position, 0.2f);
     }
 }

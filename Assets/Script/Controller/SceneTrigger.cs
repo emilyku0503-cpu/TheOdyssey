@@ -20,8 +20,13 @@ public class SceneTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Trigger touched by: " + other.name
+                  + " / Tag: " + other.tag);
+
         if (other.CompareTag("Player") && !isTransitioning)
         {
+            Debug.Log("Player detected! Loading: " + sceneName);
+
             isTransitioning = true;
             StartCoroutine(FadeAndLoadScene());
         }

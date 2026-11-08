@@ -1,17 +1,22 @@
 
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 using StarterAssets;
+using System.Collections;
 
 public class Boost : MonoBehaviour
 {
     [Header("Jump Boost")]
     [SerializeField] private float jumpMultiplier = 1.8f;
+    [SerializeField] private float boostDuration = 3f;
 
     [Header("UI")]
     [SerializeField] private GameObject jumpBoostUI;
+    [SerializeField] private TMP_Text boostTimerText;
     [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private GameObject okayPanel;
+    [SerializeField] private float okayDuration = 1.5f;
 
     [Header("Tutorial")]
     [SerializeField] private GameObject tutorialBooster;
@@ -24,8 +29,6 @@ public class Boost : MonoBehaviour
     [SerializeField] private float emissionIntensity = 3f;
 
     private ThirdPersonController controller;
-    private StarterAssetsInputs inputs;
-    private PlayerInput playerInput;
 
     private Material legMaterial;
     private Color originalLegColor;
@@ -33,28 +36,29 @@ public class Boost : MonoBehaviour
     private bool originalEmissionEnabled;
 
     private float originalJumpHeight;
+    private float remainingBoostTime;
 
     private bool hasBoost;
-    private bool consuming;
-    private bool tutorialOpen;
     private bool tutorialShown;
+    private bool waitingForSpace;
 
-    private bool forcedTutorialJump;
-    private float savedTimeScale;
-    private bool savedControllerEnabled;
-    private bool savedInputActive;
+    private Coroutine okayTimer;
 
     private void Awake()
     {
         controller = GetComponent<ThirdPersonController>();
-        inputs = GetComponent<StarterAssetsInputs>();
-        playerInput = GetComponent<PlayerInput>();
 
         if (jumpBoostUI != null)
             jumpBoostUI.SetActive(false);
 
+        if (boostTimerText != null)
+            boostTimerText.gameObject.SetActive(false);
+
         if (tutorialPanel != null)
             tutorialPanel.SetActive(false);
+
+        if (okayPanel != null)
+            okayPanel.SetActive(false);
 
         if (legRenderer != null)
         {
@@ -84,14 +88,13 @@ public class Boost : MonoBehaviour
         if (!other.CompareTag("JumpBooster"))
             return;
 
-        if (controller == null || inputs == null ||
-            playerInput == null)
+        if (controller == null)
         {
-            Debug.LogWarning("Missing player components!");
+            Debug.LogWarning("Missing ThirdPersonController!");
             return;
         }
 
-        // Save original jump height only once
+        // Save original jump height once
         if (!hasBoost)
             originalJumpHeight = controller.JumpHeight;
 
@@ -101,8 +104,17 @@ public class Boost : MonoBehaviour
 
         hasBoost = true;
 
+        // Reset duration on every pickup
+        remainingBoostTime = Mathf.Max(0.01f, boostDuration);
+
+        // Show UI
         if (jumpBoostUI != null)
             jumpBoostUI.SetActive(true);
+
+        if (boostTimerText != null)
+            boostTimerText.gameObject.SetActive(true);
+
+        UpdateTimerUI();
 
         // Change leg appearance
         if (legMaterial != null)
@@ -120,130 +132,98 @@ public class Boost : MonoBehaviour
             }
         }
 
-        // Check whether this is the tutorial booster
+        // Tutorial only once
         bool startTutorial =
             !tutorialShown &&
-            tutorialBooster != null &&
-            other.gameObject == tutorialBooster;
+            (tutorialBooster == null ||
+             other.gameObject == tutorialBooster);
 
         Destroy(other.gameObject);
 
         if (startTutorial)
-            StartTutorial();
+            ShowTutorial();
 
         Debug.Log("Jump Boost Collected!");
     }
 
-    private void StartTutorial()
+    private void Update()
+    {
+        // Boost countdown
+        if (hasBoost)
+        {
+            remainingBoostTime -= Time.deltaTime;
+
+            if (remainingBoostTime <= 0f)
+            {
+                remainingBoostTime = 0f;
+                RestoreBoost();
+            }
+            else
+            {
+                UpdateTimerUI();
+            }
+        }
+
+        // Tutorial Spacebar detection
+        if (waitingForSpace &&
+            Keyboard.current != null &&
+            Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            CompleteTutorial();
+        }
+    }
+
+    // NEW: Update countdown UI
+    private void UpdateTimerUI()
+    {
+        if (boostTimerText != null)
+        {
+            boostTimerText.text =
+                 $"Boost: {Mathf.CeilToInt(remainingBoostTime)}";
+        }
+    }
+
+    private void ShowTutorial()
     {
         tutorialShown = true;
-        tutorialOpen = true;
+        waitingForSpace = true;
 
-        // Show tutorial UI
         if (tutorialPanel != null)
             tutorialPanel.SetActive(true);
-
-        // Save current state
-        savedTimeScale = Time.timeScale;
-        savedControllerEnabled = controller.enabled;
-        savedInputActive = playerInput.inputIsActive;
-
-        // Stop movement and camera controls
-        inputs.move = Vector2.zero;
-        inputs.look = Vector2.zero;
-        inputs.jump = false;
-        inputs.sprint = false;
-
-        playerInput.DeactivateInput();
-        controller.enabled = false;
-
-        // Pause game
-        Time.timeScale = 0f;
 
         Debug.Log("Jump Tutorial Started!");
     }
 
-    private void Update()
-    {
-        if (!hasBoost || consuming)
-            return;
-
-        if (Keyboard.current == null)
-            return;
-
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            if (tutorialOpen)
-            {
-                CompleteTutorial();
-            }
-            else
-            {
-                ConsumeBoost();
-            }
-        }
-    }
-
     private void CompleteTutorial()
     {
-        // Hide tutorial and resume controls
-        ResumeTutorial();
-
-        // Force the jump that was pressed during pause
-        inputs.move = Vector2.zero;
-        inputs.look = Vector2.zero;
-        inputs.jump = true;
-
-        forcedTutorialJump = true;
-
-        // Consume after ThirdPersonController processes jump
-        ConsumeBoost();
-
-        Debug.Log("Jump Tutorial Completed!");
-    }
-
-    private void ResumeTutorial()
-    {
-        if (!tutorialOpen)
-            return;
-
-        tutorialOpen = false;
+        waitingForSpace = false;
 
         if (tutorialPanel != null)
             tutorialPanel.SetActive(false);
 
-        Time.timeScale = savedTimeScale;
-
-        controller.enabled = savedControllerEnabled;
-
-        if (savedInputActive)
-            playerInput.ActivateInput();
-    }
-
-    private void ConsumeBoost()
-    {
-        if (!hasBoost || consuming)
-            return;
-
-        consuming = true;
-        StartCoroutine(FinishBoost());
-    }
-
-    private IEnumerator FinishBoost()
-    {
-        // Wait until the next frame's controller Update
-        // has processed the boosted jump
-        yield return null;
-
-        RestoreBoost();
-
-        if (forcedTutorialJump && inputs != null)
+        if (okayPanel != null)
         {
-            inputs.jump = false;
-            forcedTutorialJump = false;
+            okayPanel.SetActive(true);
+
+            if (okayTimer != null)
+                StopCoroutine(okayTimer);
+
+            okayTimer = StartCoroutine(HideOkayPanel());
         }
 
-        consuming = false;
+        Debug.Log("Jump Tutorial Completed!");
+    }
+
+    private IEnumerator HideOkayPanel()
+    {
+        yield return new WaitForSeconds(
+            Mathf.Max(0f, okayDuration)
+        );
+
+        if (okayPanel != null)
+            okayPanel.SetActive(false);
+
+        okayTimer = null;
     }
 
     private void RestoreBoost()
@@ -252,6 +232,7 @@ public class Boost : MonoBehaviour
             return;
 
         hasBoost = false;
+        remainingBoostTime = 0f;
 
         // Restore jump height
         if (controller != null)
@@ -260,6 +241,10 @@ public class Boost : MonoBehaviour
         // Hide boost UI
         if (jumpBoostUI != null)
             jumpBoostUI.SetActive(false);
+
+        // Hide countdown UI
+        if (boostTimerText != null)
+            boostTimerText.gameObject.SetActive(false);
 
         // Restore leg appearance
         if (legMaterial != null)
@@ -280,20 +265,26 @@ public class Boost : MonoBehaviour
             }
         }
 
-        Debug.Log("Jump Boost Used!");
+        Debug.Log("Jump Boost Expired!");
     }
 
     private void OnDisable()
     {
-        if (tutorialOpen)
-            ResumeTutorial();
+        if (okayTimer != null)
+        {
+            StopCoroutine(okayTimer);
+            okayTimer = null;
+        }
 
         if (hasBoost)
             RestoreBoost();
 
-        if (forcedTutorialJump && inputs != null)
-            inputs.jump = false;
+        waitingForSpace = false;
 
-        forcedTutorialJump = false;
+        if (tutorialPanel != null)
+            tutorialPanel.SetActive(false);
+
+        if (okayPanel != null)
+            okayPanel.SetActive(false);
     }
 }
