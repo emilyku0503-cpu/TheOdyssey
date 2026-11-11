@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c99ceacc9b73ba042b78e0b470c09ce7
   - enabled: 1
-    path: Assets/Scenes/OpeningCutscene.unity
+    path: Assets/Scenes/CutScene/OpeningCutscene.unity
     guid: eca2b2d0b641d2145907ed4980357303
   - enabled: 1
     path: Assets/Scenes/Level.unity
     guid: bc5a3e77b2af7924892317fe2c5f1c27
   - enabled: 1
-    path: Assets/Scenes/ShipCutScene.unity
+    path: Assets/Scenes/CutScene/ShipCutScene.unity
     guid: f24b67a336064ae4ab531e7a433d84f0
   - enabled: 1
     path: Assets/Scenes/Wrecked Ship.unity

@@ -179,7 +179,7 @@ public class Boost : MonoBehaviour
         if (boostTimerText != null)
         {
             boostTimerText.text =
-                 $"Boost: {Mathf.CeilToInt(remainingBoostTime)}";
+                 $"{Mathf.CeilToInt(remainingBoostTime)}";
         }
     }
 
