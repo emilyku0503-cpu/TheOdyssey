@@ -180,6 +180,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964bf3d8da28dbf4fa0f2ac822c9f34c, type: 3}
+--- !u!1001 &193186123
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.502782
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.000000029426062
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.175663
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_Name
+      value: Meshy_AI_Purple_Vanguard_20261112_animated_mixamo_Idle_12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: b532dc8152985444aacd52d1b182307e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8e82631a198b5e24899bfc84180a5996, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b532dc8152985444aacd52d1b182307e, type: 3}
 --- !u!1 &294053702
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +378,67 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &797890752
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.580068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000013676708
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.219651
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_Name
+      value: Meshy_AI_Purple_Vanguard_20261112_animated_mixamo_Talk_with_Hands_Open
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1ff961cd8bbaf5749bd668521c48beef, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8f77886f79591b04392772e9fafb5c88, type: 3}
 --- !u!1 &1295139189
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,3 +687,5 @@ SceneRoots:
   - {fileID: 1497112333}
   - {fileID: 35624943}
   - {fileID: 1295139193}
+  - {fileID: 193186123}
+  - {fileID: 797890752}
