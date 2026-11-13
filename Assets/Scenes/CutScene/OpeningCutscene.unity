@@ -425,6 +425,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 97971493970350098, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: nextSceneName
+      value: Map
+      objectReference: {fileID: 0}
     - target: {fileID: 595645144489530061, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
       propertyPath: m_Name
       value: CutSceneManager

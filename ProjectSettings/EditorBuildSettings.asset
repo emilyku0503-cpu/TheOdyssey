@@ -27,8 +27,14 @@ EditorBuildSettings:
     path: Assets/Scenes/LotusCutscene.unity
     guid: b18039960d1792f4aaca3e43c24bb21f
   - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: 0b2ef2aed13f05d4eb78600890b363ca
+  - enabled: 1
     path: Assets/Scenes/Lotus Island.unity
     guid: 927b3bb1d57572649ba6d560dd182479
+  - enabled: 1
+    path: Assets/Scenes/CutScene/CutSCene#2.unity
+    guid: 02f85ee38a5bc4c4ba5fa66efa0290df
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

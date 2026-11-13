@@ -436,7 +436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2607308400295598965, guid: 7e96d5b8573d4504d94da78a96e8858e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 106.33
+      value: 113.61
       objectReference: {fileID: 0}
     - target: {fileID: 2607308400295598965, guid: 7e96d5b8573d4504d94da78a96e8858e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 1444606129}
     - target: {fileID: 4564103184428228166, guid: 7e96d5b8573d4504d94da78a96e8858e, type: 3}
       propertyPath: sceneName
-      value: ShipCutScene
+      value: CutSCene#2
       objectReference: {fileID: 0}
     - target: {fileID: 4564103184428228166, guid: 7e96d5b8573d4504d94da78a96e8858e, type: 3}
       propertyPath: markLevelComplete
