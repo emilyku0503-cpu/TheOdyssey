@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c8103645fa1fad94fa78667c8ac3fb03
+guid: 964bf3d8da28dbf4fa0f2ac822c9f34c
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
@@ -7,23 +7,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Palm_Base
-    second: {fileID: 2100000, guid: 1b8601df9f5474f4db638983725baa16, type: 2}
+      name: Material.001
+    second: {fileID: 2100000, guid: d070899a08919e040b09d92425d59ed4, type: 2}
   - first:
-      type: UnityEngine:Material
+      type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: Palm_Leaf
-    second: {fileID: 2100000, guid: d74a030fae7282646bf89b656622fb6d, type: 2}
+      name: Image_0
+    second: {fileID: 2800000, guid: 45a4a144792591f4aab24b868f70d176, type: 3}
   - first:
-      type: UnityEngine:Material
+      type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: Palm_LeafDark
-    second: {fileID: 2100000, guid: 13db6d94e06a2224db414ac8baa6d037, type: 2}
+      name: Image_2
+    second: {fileID: 2800000, guid: 54dd4eb66283df144b3b07091ae4366c, type: 3}
   - first:
-      type: UnityEngine:Material
+      type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: Palm_Trunk
-    second: {fileID: 2100000, guid: 6915ea070a88bf74aa824148d38f3313, type: 2}
+      name: texture_0_metallic
+    second: {fileID: 2800000, guid: fbf850fe032be4340b692ba49996302b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture_0_roughness
+    second: {fileID: 2800000, guid: d23a1b33ed24ae94881e66bb3b3acbeb, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -50,7 +55,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Crab_SideWalk
+      takeName: Scene
+      internalID: -623603649343465320
+      firstFrame: 1
+      lastFrame: 240
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -121,7 +155,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
