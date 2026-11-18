@@ -92,8 +92,13 @@ public class PlayerHealth : MonoBehaviour
         if (isDead || !IsControlledPlayer())
             return;
 
+        diedInWater = true;
         LoseHealth(1);
+        diedInWater = false;
     }
+
+    // 마지막 체력을 물에 빠져서 잃었는지 (죽음 연출: 쓰러짐 대신 가라앉음)
+    private bool diedInWater;
 
     private void LoseHealth(int amount)
     {
@@ -117,8 +122,10 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        if (respawn != null)
-            respawn.Respawn();
+        // 히트스톱·카메라 흔들림·붉은 번쩍임 → 화면이 어두워진 사이에 체크포인트로 이동
+        var reaction = GetComponent<HitReaction>();
+        if (reaction == null) reaction = gameObject.AddComponent<HitReaction>();
+        reaction.Play(respawn != null ? (System.Action)respawn.Respawn : null);
 
         StopAllCoroutines();
         SetRenderers(true);
@@ -198,8 +205,10 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        // Normal Game Over
-        StartCoroutine(GoToGameOver());
+        // Normal Game Over: death sequence (fall / sink, slow motion, red flash, fade to black), then GameOver screen
+        var death = GetComponent<DeathSequence>();
+        if (death == null) death = gameObject.AddComponent<DeathSequence>();
+        death.Play(diedInWater, GameOverMenu.Show);
     }
 
     private IEnumerator GoToGameOver()
