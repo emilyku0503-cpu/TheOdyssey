@@ -67,13 +67,24 @@ public class KillZone : MonoBehaviour
             }
 
 
-            // Respawn player
-            PlayerRespawn playerRespawn =
-                other.GetComponentInParent<PlayerRespawn>();
+            // 물에 빠지면 체력 1칸 감소 + 체크포인트로 리스폰 (체력이 다 닳으면 GameOver)
+            PlayerHealth playerHealth =
+                other.GetComponentInParent<PlayerHealth>();
 
-            if (playerRespawn != null)
+            if (playerHealth != null)
             {
-                playerRespawn.Respawn();
+                playerHealth.FallIntoWater();
+            }
+            else
+            {
+                // 체력 스크립트가 없는 캐릭터는 예전처럼 리스폰만
+                PlayerRespawn playerRespawn =
+                    other.GetComponentInParent<PlayerRespawn>();
+
+                if (playerRespawn != null)
+                {
+                    playerRespawn.Respawn();
+                }
             }
         }
     }

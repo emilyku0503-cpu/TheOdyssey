@@ -5,6 +5,8 @@ public class PlayerRespawn : MonoBehaviour
 {
     private Transform currentCheckpoint;
     private CharacterController characterController;
+    private Vector3 fallbackPosition;
+    private Quaternion fallbackRotation = Quaternion.identity;
 
     // ---- 씬이 바뀌어도(GameOver 화면을 거쳐도) 남아 있는 마지막 체크포인트 정보 ----
     private static bool hasSavedCheckpoint;
@@ -45,10 +47,17 @@ public class PlayerRespawn : MonoBehaviour
         if (!IsControlledPlayer())
             return;
 
+        // 체크포인트를 아직 안 지났을 때 돌아갈 곳 = 스테이지 시작 위치
+        fallbackPosition = transform.position;
+        fallbackRotation = transform.rotation;
+
         string scene = SceneManager.GetActiveScene().name;
         if (respawnOnNextLoad && hasSavedCheckpoint && savedScene == scene)
         {
             MoveTo(savedPosition, savedRotation);
+            // GameOver 에서 돌아온 경우엔 그 체크포인트가 새 기본 리스폰 위치
+            fallbackPosition = savedPosition;
+            fallbackRotation = savedRotation;
             Debug.Log("Respawned at last checkpoint: " + savedPosition);
         }
         else if (hasSavedCheckpoint && savedScene != scene)
@@ -80,10 +89,10 @@ public class PlayerRespawn : MonoBehaviour
 
     public void Respawn()
     {
-        if (currentCheckpoint == null)
-            return;
-
-        MoveTo(currentCheckpoint.position, currentCheckpoint.rotation);
+        if (currentCheckpoint != null)
+            MoveTo(currentCheckpoint.position, currentCheckpoint.rotation);
+        else
+            MoveTo(fallbackPosition, fallbackRotation); // 아직 체크포인트 없음 → 시작 위치(또는 GameOver 후 복귀한 체크포인트)
     }
 
     // 체크포인트(RespawnPoint)는 플랫폼 모델을 따라 옆으로 기울어져 있을 수 있음.
