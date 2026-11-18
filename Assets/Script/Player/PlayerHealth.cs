@@ -122,8 +122,10 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        if (respawn != null)
-            respawn.Respawn();
+        // 히트스톱·카메라 흔들림·붉은 번쩍임 → 화면이 어두워진 사이에 체크포인트로 이동
+        var reaction = GetComponent<HitReaction>();
+        if (reaction == null) reaction = gameObject.AddComponent<HitReaction>();
+        reaction.Play(respawn != null ? (System.Action)respawn.Respawn : null);
 
         StopAllCoroutines();
         SetRenderers(true);
