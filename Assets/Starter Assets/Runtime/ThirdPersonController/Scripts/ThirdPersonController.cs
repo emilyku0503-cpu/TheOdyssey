@@ -100,6 +100,9 @@ namespace StarterAssets
         private float _fallTimeoutDelta;
         private int _jumpCount = 0;
 
+        // 점프할 때마다 호출 (인자: 이번 점프가 몇 번째인지. 1 = 첫 점프, 2 = 더블 점프)
+        public event System.Action<int> Jumped;
+
         // animation IDs
         private int _animIDSpeed;
         private int _animIDGrounded;
@@ -335,6 +338,7 @@ namespace StarterAssets
                 _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
                 _jumpCount++;
+                Jumped?.Invoke(_jumpCount);
 
                 if (_hasAnimator)
                 {

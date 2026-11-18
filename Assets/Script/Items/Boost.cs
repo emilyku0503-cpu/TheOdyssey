@@ -44,9 +44,15 @@ public class Boost : MonoBehaviour
 
     private Coroutine okayTimer;
 
+    public bool IsBoostActive => hasBoost;
+
     private void Awake()
     {
         controller = GetComponent<ThirdPersonController>();
+
+        // 더블 점프 바람 고리 이펙트가 없으면 자동으로 붙임
+        if (GetComponent<DoubleJumpWindRing>() == null)
+            gameObject.AddComponent<DoubleJumpWindRing>();
 
         if (jumpBoostUI != null)
             jumpBoostUI.SetActive(false);
