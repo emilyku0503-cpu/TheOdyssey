@@ -24812,29 +24812,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6655937255599396412, guid: 43ccf6febb19b284a8b6391fd94f9881, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6655937255599396412, guid: 43ccf6febb19b284a8b6391fd94f9881, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6655937255599396412, guid: 43ccf6febb19b284a8b6391fd94f9881, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7174857769677346591, guid: 43ccf6febb19b284a8b6391fd94f9881, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7454864464031623846, guid: 43ccf6febb19b284a8b6391fd94f9881, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7454864464031623846, guid: 43ccf6febb19b284a8b6391fd94f9881, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

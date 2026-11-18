@@ -20,6 +20,12 @@ public class EnemyMovement : MonoBehaviour
     [Header("Starting Point")]
     [SerializeField] private StartPoint startPoint = StartPoint.PointA;
 
+    [Header("Facing (optional)")]
+    [Tooltip("겉모습 모델 (예: 게). 넣으면 순찰 방향에 맞춰 옆걸음 방향으로 돌려줌")]
+    [SerializeField] private Transform visual;
+    [Tooltip("게처럼 옆으로 걷는 모델이면 켜기 (모델의 좌우 축을 순찰 방향에 맞춤)")]
+    [SerializeField] private bool walkSideways = true;
+
     private Vector3 segmentStart;
     private Vector3 segmentEnd;
 
@@ -52,6 +58,18 @@ public class EnemyMovement : MonoBehaviour
             : pointB.position;
 
         SetNextTarget();
+        FaceAlongPath();
+    }
+
+    // 순찰 경로(A↔B) 방향에 맞춰 모델을 한 번 돌려둠 (앞뒤로 왕복하니 매번 돌 필요 없음)
+    private void FaceAlongPath()
+    {
+        if (visual == null) return;
+        Vector3 dir = pointB.position - pointA.position;
+        dir.y = 0f;
+        if (dir.sqrMagnitude < 0.0001f) return;
+        Vector3 axis = walkSideways ? Vector3.right : Vector3.forward;
+        visual.rotation = Quaternion.FromToRotation(axis, dir.normalized);
     }
 
     private void Update()
