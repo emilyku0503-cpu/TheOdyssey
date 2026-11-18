@@ -8,25 +8,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 187822701879911792, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 187822701879911792, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.71999997
+      objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: lengthInSec
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: ShapeModule.angle
-      value: 20
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: ShapeModule.m_Scale.x
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: ShapeModule.m_Scale.y
-      value: 0.4
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.352
+      objectReference: {fileID: 0}
+    - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 20
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: InitialModule.startSizeY.scalar
@@ -38,19 +54,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 3
+      value: 2.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.448
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 1
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
-      value: 2
+      value: 0.96000004
       objectReference: {fileID: 0}
     - target: {fileID: 594606319683044145, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
-      value: 0.5
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 719597238427266320, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.064
+      objectReference: {fileID: 0}
+    - target: {fileID: 719597238427266320, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.032
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902663628386274458, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902663628386274458, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902663628386274458, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.352
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902663628386274458, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902663628386274458, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902663628386274458, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 1.9200001
       objectReference: {fileID: 0}
     - target: {fileID: 5078379920280781247, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: m_LocalPosition.x
@@ -95,6 +147,14 @@ PrefabInstance:
     - target: {fileID: 7742253873646690831, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
       propertyPath: m_Name
       value: Fire_Large Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130658096515371664, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.71999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130658096515371664, guid: 54bc44370f8d9f64ca8b2335847607ac, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

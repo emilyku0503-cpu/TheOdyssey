@@ -38,14 +38,18 @@ public class PlayerRespawn : MonoBehaviour
         respawnOnNextLoad = false;
     }
 
-    private void Start()
+    private System.Collections.IEnumerator Start()
     {
         characterController = GetComponent<CharacterController>();
 
         // 실제로 조작하는 플레이어만 처리 (NPC 등에 복사된 캐릭터는 무시)
         // → 둘 다 같은 자리로 순간이동하면 플레이어가 복사본 위에 올라타 계속 낙하 모션이 됨
         if (!IsControlledPlayer())
-            return;
+            yield break;
+
+        // 한 프레임 기다림: 다른 스크립트(예: PlayerStartPosition)가 Start 에서 플레이어를
+        // 시작 위치로 옮긴 "뒤"의 위치를 기억해야, 바다 위 같은 엉뚱한 곳으로 리스폰되지 않음
+        yield return null;
 
         // 체크포인트를 아직 안 지났을 때 돌아갈 곳 = 스테이지 시작 위치
         fallbackPosition = transform.position;

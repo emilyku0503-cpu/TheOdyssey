@@ -92,8 +92,13 @@ public class PlayerHealth : MonoBehaviour
         if (isDead || !IsControlledPlayer())
             return;
 
+        diedInWater = true;
         LoseHealth(1);
+        diedInWater = false;
     }
+
+    // 마지막 체력을 물에 빠져서 잃었는지 (죽음 연출: 쓰러짐 대신 가라앉음)
+    private bool diedInWater;
 
     private void LoseHealth(int amount)
     {
@@ -198,8 +203,10 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        // Normal Game Over
-        StartCoroutine(GoToGameOver());
+        // Normal Game Over: death sequence (fall / sink, slow motion, red flash, fade to black), then GameOver screen
+        var death = GetComponent<DeathSequence>();
+        if (death == null) death = gameObject.AddComponent<DeathSequence>();
+        death.Play(diedInWater, GameOverMenu.Show);
     }
 
     private IEnumerator GoToGameOver()
