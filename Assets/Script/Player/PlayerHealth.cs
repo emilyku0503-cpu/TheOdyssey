@@ -123,8 +123,24 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    [Header("Game Over")]
+    [Tooltip("체력이 0이 된 뒤 GameOver 화면으로 넘어가기까지 기다리는 시간 (피격 소리가 들리도록)")]
+    [SerializeField] private float gameOverDelay = 0.8f;
+
+    private bool isDead;
+
     private void GameOver()
     {
+        if (isDead) return; // 같은 순간 여러 번 맞아도 한 번만 처리
+        isDead = true;
+        canTakeDamage = false;
         Debug.Log("GAME OVER");
+        StartCoroutine(GoToGameOver());
+    }
+
+    private IEnumerator GoToGameOver()
+    {
+        yield return new WaitForSecondsRealtime(gameOverDelay);
+        GameOverMenu.Show();
     }
 }

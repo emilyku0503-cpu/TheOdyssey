@@ -9146,11 +9146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4581098006654057119, guid: 4af9da99cea24a045a93ec332fde63e4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.89
+      value: 17.93
       objectReference: {fileID: 0}
     - target: {fileID: 4581098006654057119, guid: 4af9da99cea24a045a93ec332fde63e4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.12667787
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 4581098006654057119, guid: 4af9da99cea24a045a93ec332fde63e4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18850,6 +18850,7 @@ MonoBehaviour:
   healthUI: {fileID: 0}
   audioSource: {fileID: 0}
   damageSound: {fileID: 0}
+  gameOverDelay: 0.8
 --- !u!1 &8946090345016032295
 GameObject:
   m_ObjectHideFlags: 0
