@@ -26,7 +26,14 @@ public class EnemyMovement : MonoBehaviour
     [Tooltip("게처럼 옆으로 걷는 모델이면 켜기 (모델의 좌우 축을 순찰 방향에 맞춤)")]
     [SerializeField] private bool walkSideways = true;
 
+    [Header("Follow Ground (optional)")]
+    [Tooltip("켜면 바닥(예: 처진 다리 판자)을 따라 높이를 맞춰 걷는다")]
+    [SerializeField] private bool followGround = false;
+    [Tooltip("바닥에서 이 오브젝트 기준점까지의 높이")]
+    [SerializeField] private float groundOffset = 0.36f;
+
     private Vector3 segmentStart;
+    private Collider[] ownColliders;
     private Vector3 segmentEnd;
 
     private float currentSpeed;
@@ -57,8 +64,30 @@ public class EnemyMovement : MonoBehaviour
             ? pointA.position
             : pointB.position;
 
+        ownColliders = GetComponentsInChildren<Collider>();
+
         SetNextTarget();
         FaceAlongPath();
+        SnapToGround();
+    }
+
+    private void SnapToGround()
+    {
+        if (!followGround) return;
+        Vector3 p = transform.position;
+        float best = float.MaxValue;
+        float groundY = 0f;
+        foreach (var hit in Physics.RaycastAll(p + Vector3.up * 1.5f, Vector3.down, 4f, ~0, QueryTriggerInteraction.Ignore))
+        {
+            if (System.Array.IndexOf(ownColliders, hit.collider) >= 0) continue;
+            if (hit.collider.CompareTag("Player")) continue;
+            if (hit.distance < best) { best = hit.distance; groundY = hit.point.y; }
+        }
+        if (best < float.MaxValue)
+        {
+            p.y = groundY + groundOffset;
+            transform.position = p;
+        }
     }
 
     // 순찰 경로(A↔B) 방향에 맞춰 모델을 한 번 돌려둠 (앞뒤로 왕복하니 매번 돌 필요 없음)
@@ -86,6 +115,7 @@ public class EnemyMovement : MonoBehaviour
             segmentEnd,
             easedT
         );
+        SnapToGround();
 
         // Switch direction after reaching destination
         if (t >= 1f)
