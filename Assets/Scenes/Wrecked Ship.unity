@@ -7834,6 +7834,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1437178736}
     m_Modifications:
+    - target: {fileID: 3997257834617751598, guid: 34cc343e6290fba41996b5006b8c5d62, type: 3}
+      propertyPath: masterMixerGroup
+      value: 
+      objectReference: {fileID: 5588664360341608476, guid: 8ee76b5b5f6b2cc4597eb6175a755667, type: 2}
+    - target: {fileID: 3997257834617751598, guid: 34cc343e6290fba41996b5006b8c5d62, type: 3}
+      propertyPath: InitialJumpAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 19b38a6449a17b44bb7bd76a47d7c808, type: 3}
     - target: {fileID: 4646423068297328096, guid: 34cc343e6290fba41996b5006b8c5d62, type: 3}
       propertyPath: m_Name
       value: Odyssey_Player
@@ -26636,6 +26644,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepAudioVolume: 0.3
   masterMixerGroup: {fileID: 24300002, guid: b53939bd219c1dd478ddb48164a267ac, type: 2}
+  InitialJumpAudioClip: {fileID: 0}
+  InitialJumpAudioVolume: 0.7
   WoodFootstepClips:
   - {fileID: 8300000, guid: c4d2e39baf28a3343b54986403d689f6, type: 3}
   SandFootstepClips:
