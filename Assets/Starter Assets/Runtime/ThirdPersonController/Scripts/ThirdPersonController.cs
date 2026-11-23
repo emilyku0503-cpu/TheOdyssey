@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -33,6 +33,12 @@ namespace StarterAssets
         public AudioClip[] FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
         public AudioMixerGroup masterMixerGroup;
+
+        [Header("Initial Jump Audio")]
+        [Tooltip("Played on the first jump only, not the second jump.")]
+        public AudioClip InitialJumpAudioClip;
+        [Range(0f, 1f)] public float InitialJumpAudioVolume = 0.7f;
+        private AudioSource _initialJumpAudioSource;
 
         [Header("Surface Footstep Audio")]
         public AudioClip[] WoodFootstepClips;
@@ -338,6 +344,10 @@ namespace StarterAssets
                 _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
                 _jumpCount++;
+                if (_jumpCount == 1)
+                {
+                    PlayInitialJumpSound();
+                }
                 Jumped?.Invoke(_jumpCount);
 
                 if (_hasAnimator)
@@ -389,6 +399,24 @@ namespace StarterAssets
             yield return new WaitForSeconds(duration);
 
             _speedMultiplier = 1f;
+        }
+
+        private void PlayInitialJumpSound()
+        {
+            if (InitialJumpAudioClip == null) return;
+
+            // Use a dedicated source so other player sounds keep their settings.
+            if (_initialJumpAudioSource == null)
+            {
+                _initialJumpAudioSource = gameObject.AddComponent<AudioSource>();
+                _initialJumpAudioSource.playOnAwake = false;
+                _initialJumpAudioSource.loop = false;
+                _initialJumpAudioSource.spatialBlend = 0f;
+            }
+
+            // Assign the SFX group to Master Mixer Group in the Inspector.
+            _initialJumpAudioSource.outputAudioMixerGroup = masterMixerGroup;
+            _initialJumpAudioSource.PlayOneShot(InitialJumpAudioClip, InitialJumpAudioVolume);
         }
 
         private void OnFootstep(AnimationEvent animationEvent)
