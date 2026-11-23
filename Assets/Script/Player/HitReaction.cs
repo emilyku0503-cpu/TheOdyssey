@@ -50,6 +50,7 @@ public class HitReaction : MonoBehaviour
         Time.timeScale = 0f;
         overlay.color = flashColor;
         yield return new WaitForSecondsRealtime(hitStopDuration);
+        yield return new WaitUntil(() => !GameSettings.IsPaused);
         Time.timeScale = prevScale <= 0f ? 1f : prevScale;
 
         if (respawn == null)
@@ -66,6 +67,7 @@ public class HitReaction : MonoBehaviour
 
         respawn();                         // teleport while nobody can see it
         yield return new WaitForSecondsRealtime(holdDark);
+        yield return new WaitUntil(() => !GameSettings.IsPaused);
         SetControl(true);
         yield return Fade(fadeColor, Clear(fadeColor), fadeIn);
         busy = false;
@@ -112,6 +114,6 @@ public class HitReaction : MonoBehaviour
 
     private void OnDisable()
     {
-        if (busy) { Time.timeScale = 1f; SetControl(true); if (overlay) overlay.color = Color.clear; busy = false; }
+        if (busy) { if (!GameSettings.IsPaused) { Time.timeScale = 1f; SetControl(true); } if (overlay) overlay.color = Color.clear; busy = false; }
     }
 }

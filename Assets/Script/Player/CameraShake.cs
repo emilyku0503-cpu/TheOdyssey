@@ -18,7 +18,7 @@ public class CameraShake : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (time >= total) return;
+        if (GameSettings.IsPaused || time >= total) return;
         time += Mathf.Min(Time.unscaledDeltaTime, 1f / 30f);
         float k = 1f - Mathf.Clamp01(time / total);
         transform.position += (transform.right * Random.Range(-1f, 1f) + transform.up * Random.Range(-1f, 1f)) * strength * k * k;

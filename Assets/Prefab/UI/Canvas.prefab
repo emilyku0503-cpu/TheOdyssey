@@ -622,7 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fdbd6195fd52b49ad4a57313c78079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSettings
-  audioMixer: {fileID: 24100000, guid: b53939bd219c1dd478ddb48164a267ac, type: 2}
+  audioMixer: {fileID: 24100000, guid: 8ee76b5b5f6b2cc4597eb6175a755667, type: 2}
   volumeSlider: {fileID: 8602585803427753171}
   settingsPanel: {fileID: 546187279107720949}
   fadePanel: {fileID: 3539300127846339922}
