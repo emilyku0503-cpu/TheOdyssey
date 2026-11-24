@@ -25,6 +25,11 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("When enabled, Game Over will only print a Debug Log instead of opening the Game Over screen.")]
     [SerializeField] private bool debugMode = false;
 
+    [Header("Tutorial")]
+    [Tooltip("켜져 있으면 맞거나 물에 빠져도 체력이 줄지 않음 (피격 연출과 리스폰은 그대로). TutorialEndTrigger 를 지나면 꺼짐")]
+    [SerializeField] private bool tutorialProtection = false;
+    public bool TutorialProtection { get => tutorialProtection; set => tutorialProtection = value; }
+
     private bool canTakeDamage = true;
     private bool isDead;
     private Renderer[] renderers;
@@ -102,6 +107,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void LoseHealth(int amount)
     {
+        if (tutorialProtection) amount = 0;   // tutorial: keep the hit feel + respawn, but no health loss
         currentHealth -= amount;
         currentHealth =
             Mathf.Clamp(currentHealth, 0, maxHealth);

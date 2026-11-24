@@ -34,6 +34,14 @@ public class SequentialDialogueTrigger : MonoBehaviour
     [SerializeField] private float slideDistance = 80f;
     [SerializeField] private bool triggerOnce = true;
 
+    [Header("Start")]
+    [Tooltip("켜면 트리거 대신 씬 시작 후 자동으로 재생")]
+    [SerializeField] private bool playOnStart = false;
+    [SerializeField] private float startDelay = 1.5f;
+
+    // the panel is shared between triggers: only one may drive it at a time
+    private static SequentialDialogueTrigger current;
+
     private CanvasGroup group;
     private CanvasGroup textGroup;
     private RectTransform panelRect;
@@ -62,17 +70,38 @@ public class SequentialDialogueTrigger : MonoBehaviour
             textGroup = dialogueText.GetComponent<CanvasGroup>();
             if (textGroup == null) textGroup = dialogueText.gameObject.AddComponent<CanvasGroup>();
         }
+
+        if (playOnStart) StartCoroutine(PlayAfter(startDelay));
+    }
+
+    private IEnumerator PlayAfter(float d)
+    {
+        yield return new WaitForSeconds(d);
+        Begin();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (playOnStart || !other.CompareTag("Player")) return;
+        Begin();
+    }
+
+    private void Begin()
+    {
         if (triggerOnce && hasTriggered) return;
         if (dialogueUI == null || dialogueText == null || lines.Length == 0) return;
 
         hasTriggered = true;
+        if (current != null && current != this) current.StopNow();
+        current = this;
         if (running != null) StopCoroutine(running);
         running = StartCoroutine(Play());
+    }
+
+    private void StopNow()
+    {
+        if (running != null) { StopCoroutine(running); running = null; }
+        if (panelRect != null) panelRect.anchoredPosition = panelPos;
     }
 
     private IEnumerator Play()
@@ -112,6 +141,7 @@ public class SequentialDialogueTrigger : MonoBehaviour
         if (panelRect != null) panelRect.anchoredPosition = panelPos;
         dialogueUI.SetActive(false);
         running = null;
+        if (current == this) current = null;
     }
 
     private IEnumerator Animate(System.Action<float> step)
