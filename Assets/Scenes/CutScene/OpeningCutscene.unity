@@ -426,13 +426,41 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 97971493970350098, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: typingSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 97971493970350098, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
       propertyPath: nextSceneName
       value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 97971493970350098, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: dialogueVolume
+      value: 0.717
+      objectReference: {fileID: 0}
+    - target: {fileID: 97971493970350098, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: dialogues.Array.data[0].sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 206de8e5221f2ed4eb970fbc07d47406, type: 3}
+    - target: {fileID: 97971493970350098, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: dialogues.Array.data[0].dialogue
+      value: Odyssey is the king of Ithaca.
       objectReference: {fileID: 0}
     - target: {fileID: 595645144489530061, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
       propertyPath: m_Name
       value: CutSceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2931509363927773755, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: m_Volume
+      value: 0.741
+      objectReference: {fileID: 0}
+    - target: {fileID: 2931509363927773755, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 2f53f017d726c3f4fb7ab3a025267d25, type: 3}
+    - target: {fileID: 2931509363927773755, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 1123091000549963913, guid: 8ee76b5b5f6b2cc4597eb6175a755667, type: 2}
     - target: {fileID: 5511586221045448025, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -443,6 +471,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5511586221045448025, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511586221045448025, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7003638733156247922, guid: 56c1f82f15b93964e91629288e1e2fd0, type: 3}

@@ -72,6 +72,10 @@ public class CutsceneManager : MonoBehaviour
 
     private Coroutine dialogueFadeRoutine;
 
+    [Header("Background Music Fade")]
+    [SerializeField] private AudioSource backgroundMusic;
+    [SerializeField, Min(0.1f)] private float musicFadeOutDuration = 2f;
+
     [Header("Next Scene")]
     [SerializeField] private string nextSceneName;
 
@@ -317,6 +321,8 @@ public class CutsceneManager : MonoBehaviour
 
     private IEnumerator EndCutscene()
     {
+        Coroutine musicFade = StartCoroutine(FadeOutBackgroundMusic());
+
         // Fade out the last dialogue sound
         StartAudioFadeOut();
 
@@ -332,6 +338,9 @@ public class CutsceneManager : MonoBehaviour
             loadingNextScene
         );
 
+        // Never unload the scene while its music is still fading.
+        yield return musicFade;
+
         state = CutsceneState.Finished;
 
         if (loadingNextScene)
@@ -343,6 +352,30 @@ public class CutsceneManager : MonoBehaviour
             Debug.Log(
                 "Cutscene finished. No next scene assigned."
             );
+        }
+    }
+
+    private IEnumerator FadeOutBackgroundMusic()
+    {
+        if (backgroundMusic == null || !backgroundMusic.isPlaying)
+            yield break;
+
+        float startVolume = backgroundMusic.volume;
+        float duration = Mathf.Max(0.1f, musicFadeOutDuration);
+        float elapsed = 0f;
+
+        while (elapsed < duration && backgroundMusic != null)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            backgroundMusic.volume = Mathf.Lerp(startVolume, 0f,
+                Mathf.Clamp01(elapsed / duration));
+            yield return null;
+        }
+
+        if (backgroundMusic != null)
+        {
+            backgroundMusic.volume = 0f;
+            backgroundMusic.Stop();
         }
     }
 
