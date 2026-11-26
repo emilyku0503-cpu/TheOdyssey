@@ -21,7 +21,7 @@ public class GameSettings : MonoBehaviour
     [Header("Fade")]
     public CanvasGroup fadePanel;
     public float fadeDuration = 0.5f;
-    public string homeScene = "Level";
+    public string homeScene = "Map";
 
     [Header("Player Control (automatically found if empty)")]
     public StarterAssetsInputs playerInput;
@@ -242,6 +242,47 @@ public class GameSettings : MonoBehaviour
         }
         RestoreGameplay();
         SceneManager.LoadScene(homeScene);
+    }
+
+    public void QuitGame()
+    {
+        if (leaving) return;
+
+        leaving = true;
+        PlayerPrefs.Save();
+
+        StartCoroutine(QuitWithFade());
+    }
+
+    private IEnumerator QuitWithFade()
+    {
+        if (fadePanel != null)
+        {
+            fadePanel.blocksRaycasts = true;
+
+            float elapsed = 0f;
+
+            while (elapsed < fadeDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+
+                fadePanel.alpha = Mathf.Clamp01(
+                    elapsed / Mathf.Max(0.001f, fadeDuration)
+                );
+
+                yield return null;
+            }
+
+            fadePanel.alpha = 1f;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
     }
 
     private void OnDisable()
