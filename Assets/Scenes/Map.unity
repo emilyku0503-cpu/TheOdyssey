@@ -1872,19 +1872,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 901886237}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1823171959}
-        m_TargetAssemblyTypeName: SceneButtonManager, Assembly-CSharp
-        m_MethodName: LoadScene1
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &901886237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2073,6 +2061,18 @@ RectTransform:
   m_AnchoredPosition: {x: 358.2, y: -230.1}
   m_SizeDelta: {x: 267.23462, y: 267.23462}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &982331401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092523047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade5344f3f924e2787c9007fcc076f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MapLevelMusic
 --- !u!1 &993580906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2257,9 +2257,9 @@ MonoBehaviour:
     sceneName: Lotus Island
     routeVideo: {fileID: 32900000, guid: e54e69f4261209c41866a89d7182df5a, type: 3}
     completedRouteImage: {fileID: 1403696861}
-    hideWhenVideoStarts: {fileID: 1244968571}
-    levelUI: {fileID: 1049573131}
-    canvasGroup: {fileID: 1049573132}
+    hideWhenVideoStarts: {fileID: 0}
+    levelUI: {fileID: 2097173547}
+    canvasGroup: {fileID: 2097173548}
     levelButton: {fileID: 1581379468}
   - levelName: Cyclops' Cave
     sceneName: Cyclops' Cave
@@ -2299,8 +2299,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 982331401}
   - component: {fileID: 1092523049}
+  - component: {fileID: 982331401}
   - component: {fileID: 1092523048}
   m_Layer: 0
   m_Name: MapBGM
@@ -3727,19 +3727,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1553040814}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1823171959}
-        m_TargetAssemblyTypeName: SceneButtonManager, Assembly-CSharp
-        m_MethodName: LoadScene1
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1553040814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4074,19 +4062,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1581379469}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1823171959}
-        m_TargetAssemblyTypeName: SceneButtonManager, Assembly-CSharp
-        m_MethodName: LoadScene2
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1581379469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4173,6 +4149,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5769198563814745570, guid: f3c30a6a8f7a48a4cb6a18106b55d857, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951139930207398614, guid: f3c30a6a8f7a48a4cb6a18106b55d857, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951139930207398614, guid: f3c30a6a8f7a48a4cb6a18106b55d857, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951139930207398614, guid: f3c30a6a8f7a48a4cb6a18106b55d857, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.0024414062
+      objectReference: {fileID: 0}
     - target: {fileID: 8760613533698104675, guid: f3c30a6a8f7a48a4cb6a18106b55d857, type: 3}
       propertyPath: m_Name
       value: InkTransitionSystem
@@ -4180,6 +4172,10 @@ PrefabInstance:
     - target: {fileID: 8760613533698104675, guid: f3c30a6a8f7a48a4cb6a18106b55d857, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003214047837311008, guid: f3c30a6a8f7a48a4cb6a18106b55d857, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4195,7 +4191,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1823171960}
-  - component: {fileID: 1823171959}
   m_Layer: 0
   m_Name: SceneButtonManager
   m_TagString: Untagged
@@ -4203,21 +4198,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1823171959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823171958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e06d404c07baef44692cddd3c9346c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneButtonManager
-  scene1Name: Wrecked Ship
-  scene2Name: Lotus Island
-  scene3Name: Cyclops' Cave
 --- !u!4 &1823171960
 Transform:
   m_ObjectHideFlags: 0
@@ -4824,6 +4804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2097173547}
+  - component: {fileID: 2097173548}
   m_Layer: 5
   m_Name: Level2UI
   m_TagString: Untagged
@@ -4851,6 +4832,18 @@ RectTransform:
   m_AnchoredPosition: {x: -150, y: -520}
   m_SizeDelta: {x: 300, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &2097173548
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097173545}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4864,15 +4857,3 @@ SceneRoots:
   - {fileID: 1165422201}
   - {fileID: 1056912592}
   - {fileID: 1092523049}
---- !u!114 &982331401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092523047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade5344f3f924e2787c9007fcc076f87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MapLevelMusic
