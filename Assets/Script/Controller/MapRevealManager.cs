@@ -58,6 +58,44 @@ public class MapRevealManager : MonoBehaviour
     private int highestUnlocked;
     private int lastRevealed;
 
+    private void Update()
+    {
+        if (isBusy)
+            return;
+
+        if (InkSceneTransition.Instance != null &&
+            InkSceneTransition.Instance.IsBusy)
+            return;
+
+        bool resetPressed = false;
+
+#if ENABLE_INPUT_SYSTEM
+        resetPressed =
+            UnityEngine.InputSystem.Keyboard.current != null &&
+            UnityEngine.InputSystem.Keyboard.current.f1Key.wasPressedThisFrame;
+#elif ENABLE_LEGACY_INPUT_MANAGER
+    resetPressed = Input.GetKeyDown(KeyCode.F1);
+#endif
+
+        if (resetPressed)
+        {
+            // Reset level progress
+            LevelProgress.ResetProgress();
+
+            // Reset map reveal history
+            PlayerPrefs.DeleteKey(RevealSaveKey);
+            PlayerPrefs.Save();
+
+            Debug.Log("All progress reset!");
+
+            // Reload current scene
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(
+                SceneManager.GetActiveScene().name
+            );
+        }
+    }
+
     private void Awake()
     {
         // Configure VideoPlayer

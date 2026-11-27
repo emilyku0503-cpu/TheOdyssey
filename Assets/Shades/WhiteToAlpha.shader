@@ -7,6 +7,7 @@ Shader "Custom/InkPaperMask"
         _Threshold ("White Threshold", Range(0,1)) = 0.9
         _Softness ("Softness", Range(0.001,0.5)) = 0.05
         _InkColor ("Ink Tint", Color) = (0,0,0,1)
+        _Saturation ("Saturation", Range(0,1)) = 1
         _PaperTiling ("Paper Tiling", Vector) = (1,1,0,0)
     }
 
@@ -52,6 +53,7 @@ Shader "Custom/InkPaperMask"
             float _Threshold;
             float _Softness;
             fixed4 _InkColor;
+            float _Saturation;
             float4 _PaperTiling;
 
             v2f vert(appdata_t v)
@@ -66,18 +68,36 @@ Shader "Custom/InkPaperMask"
             {
                 fixed4 videoCol = tex2D(_MainTex, i.uv);
 
-                float luminance = dot(videoCol.rgb, float3(0.299, 0.587, 0.114));
+                float luminance = dot(
+                    videoCol.rgb,
+                    float3(0.299, 0.587, 0.114)
+                );
 
-                // 흰색일수록 투명, 검정일수록 보이게
-                float alpha = 1.0 - smoothstep(_Threshold - _Softness, _Threshold, luminance);
+                // White becomes transparent
+                float alpha = 1.0 - smoothstep(
+                    _Threshold - _Softness,
+                    _Threshold,
+                    luminance
+                );
 
-                // 검정 강도
                 float inkMask = 1.0 - luminance;
 
                 float2 paperUV = i.uv * _PaperTiling.xy;
                 fixed4 paperCol = tex2D(_PaperTex, paperUV);
 
                 fixed3 finalRgb = paperCol.rgb * _InkColor.rgb;
+
+                // Saturation adjustment
+                float gray = dot(
+                    finalRgb,
+                    float3(0.299, 0.587, 0.114)
+                );
+
+                finalRgb = lerp(
+                    float3(gray, gray, gray),
+                    finalRgb,
+                    _Saturation
+                );
 
                 return fixed4(finalRgb, alpha * inkMask);
             }

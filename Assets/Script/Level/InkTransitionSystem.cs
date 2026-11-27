@@ -1,4 +1,3 @@
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,11 +18,12 @@ public class InkSceneTransition : MonoBehaviour
 
     public static event System.Action FadeInStarted;
     public static event System.Action FadeOutStarted;
+
     public bool IsBusy { get; private set; } = true;
 
     private void Awake()
     {
-        // Keep only one transition system
+        // Keep only one transition system in this scene
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -31,13 +31,15 @@ public class InkSceneTransition : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
+        // Video settings
         videoPlayer.playOnAwake = false;
         videoPlayer.isLooping = false;
         videoPlayer.playbackSpeed = 1f;
         videoPlayer.source = VideoSource.VideoClip;
+        videoPlayer.waitForFirstFrame = true;
 
+        // Cover the screen immediately
         transitionPanel.SetActive(true);
 
         if (loadingCover != null)
@@ -46,15 +48,6 @@ public class InkSceneTransition : MonoBehaviour
 
     private void Start()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        // Play Fade In when the game first starts
-        StartCoroutine(FadeInRoutine());
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Play Fade In after loading a new scene
         StartCoroutine(FadeInRoutine());
     }
 
@@ -65,18 +58,23 @@ public class InkSceneTransition : MonoBehaviour
         yield return PlayInkVideo(inkFadeIn, true);
 
         transitionPanel.SetActive(false);
+
+        if (loadingCover != null)
+            loadingCover.SetActive(false);
+
         IsBusy = false;
     }
 
-    // Call this instead of SceneManager.LoadScene()
+    // Load the next scene with Ink Fade Out
     public void LoadSceneWithInk(string sceneName)
     {
         if (IsBusy)
             return;
 
-        if (string.IsNullOrWhiteSpace(sceneName))
+        if (string.IsNullOrWhiteSpace(sceneName) ||
+            !Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            Debug.LogError("Next scene is not assigned!");
+            Debug.LogError("Invalid scene: " + sceneName);
             return;
         }
 
@@ -87,13 +85,11 @@ public class InkSceneTransition : MonoBehaviour
     {
         IsBusy = true;
 
-        // Resume time if the game was paused
         Time.timeScale = 1f;
 
-        // Play Fade Out before changing scenes
         yield return PlayInkVideo(inkFadeOut, false);
 
-        // Keep screen covered during loading
+        // Keep the screen covered during loading
         transitionPanel.SetActive(true);
 
         if (loadingCover != null)
@@ -105,13 +101,24 @@ public class InkSceneTransition : MonoBehaviour
         if (operation == null)
         {
             Debug.LogError("Scene could not be loaded: " + sceneName);
+
             transitionPanel.SetActive(false);
+
+            if (loadingCover != null)
+                loadingCover.SetActive(false);
+
             IsBusy = false;
         }
     }
 
     private IEnumerator PlayInkVideo(VideoClip clip, bool isFadeIn)
     {
+        if (clip == null || videoPlayer == null)
+        {
+            Debug.LogWarning("Ink video is not assigned!");
+            yield break;
+        }
+
         if (isFadeIn)
         {
             transitionPanel.SetActive(true);
@@ -122,72 +129,105 @@ public class InkSceneTransition : MonoBehaviour
         else
         {
             transitionPanel.SetActive(false);
-        }
 
-        if (clip == null || videoPlayer == null)
-        {
-            Debug.LogWarning("Ink video is not assigned!");
-            yield break;
+            if (loadingCover != null)
+                loadingCover.SetActive(false);
         }
 
         videoPlayer.Stop();
         videoPlayer.clip = clip;
-        videoPlayer.Prepare();
-
-        // Wait until video is prepared
-        float prepareTime = 0f;
-
-        while (!videoPlayer.isPrepared && prepareTime < 10f)
-        {
-            prepareTime += Time.unscaledDeltaTime;
-            yield return null;
-        }
-
-        if (!videoPlayer.isPrepared)
-        {
-            Debug.LogError("Ink video preparation failed.");
-            yield break;
-        }
 
         bool finished = false;
+        bool firstFrameReady = false;
+        bool hasError = false;
 
         VideoPlayer.EventHandler onFinished =
             vp => finished = true;
+
+        VideoPlayer.FrameReadyEventHandler onFrameReady =
+            (vp, frameIndex) => firstFrameReady = true;
 
         VideoPlayer.ErrorEventHandler onError =
             (vp, message) =>
             {
                 Debug.LogError("Ink video error: " + message);
+                hasError = true;
                 finished = true;
             };
 
+        videoPlayer.sendFrameReadyEvents = true;
+
         videoPlayer.loopPointReached += onFinished;
+        videoPlayer.frameReady += onFrameReady;
         videoPlayer.errorReceived += onError;
 
+        // Prepare the video
+        videoPlayer.Prepare();
 
-        transitionPanel.SetActive(true);
-        videoPlayer.Play();
+        float prepareTime = 0f;
 
-        // Start BGM Fade In / Fade Out with Ink Transition
-        if (isFadeIn)
+        while (!videoPlayer.isPrepared &&
+               !hasError &&
+               prepareTime < 10f)
         {
-            FadeInStarted?.Invoke();
+            prepareTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (videoPlayer.isPrepared && !hasError)
+        {
+            videoPlayer.Play();
+
+            // Wait until the first video frame is ready
+            float waitTime = 0f;
+
+            while (!firstFrameReady &&
+                   !finished &&
+                   waitTime < 3f)
+            {
+                waitTime += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            if (firstFrameReady && !hasError)
+            {
+                transitionPanel.SetActive(true);
+
+                if (loadingCover != null)
+                    loadingCover.SetActive(false);
+
+                // Synchronize BGM with the transition
+                if (isFadeIn)
+                {
+                    FadeInStarted?.Invoke();
+                }
+                else
+                {
+                    FadeOutStarted?.Invoke();
+                }
+
+                // Wait until the video finishes
+                while (!finished)
+                    yield return null;
+            }
+            else
+            {
+                Debug.LogWarning("Ink video first frame failed.");
+                videoPlayer.Stop();
+            }
         }
         else
         {
-            FadeOutStarted?.Invoke();
+            Debug.LogError("Ink video preparation failed.");
+            videoPlayer.Stop();
         }
 
-        if (loadingCover != null)
-            loadingCover.SetActive(false);
-
-
-        // Wait until the video finishes
-        while (!finished)
-            yield return null;
-
+        // Remove video event listeners
         videoPlayer.loopPointReached -= onFinished;
+        videoPlayer.frameReady -= onFrameReady;
         videoPlayer.errorReceived -= onError;
+
+        videoPlayer.sendFrameReadyEvents = false;
 
         if (isFadeIn)
             videoPlayer.Stop();
@@ -197,7 +237,6 @@ public class InkSceneTransition : MonoBehaviour
     {
         if (Instance == this)
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
             Instance = null;
         }
     }

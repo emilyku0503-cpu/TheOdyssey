@@ -111,7 +111,8 @@ public class GameDialogueManager : MonoBehaviour
         // Ensure the first frame renders completely black
         SetBlackAlpha(1f);
 
-        yield return null;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForSecondsRealtime(0.2f);
 
         Debug.Log("Starting Fade In. Alpha: " +
                   blackFadeImage.color.a);
@@ -368,32 +369,27 @@ public class GameDialogueManager : MonoBehaviour
     }
 
     private IEnumerator FadeScreen(
-        float startAlpha,
-        float endAlpha,
-        float duration
-    )
+    float startAlpha,
+    float endAlpha,
+    float duration)
     {
-        float elapsed = 0f;
-        duration = Mathf.Max(0f, duration);
-
         SetBlackAlpha(startAlpha);
+
+        float elapsed = 0f;
+        duration = Mathf.Max(0.01f, duration);
 
         while (elapsed < duration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+
+            elapsed += Mathf.Min(Time.unscaledDeltaTime, 0.05f);
 
             float t = Mathf.Clamp01(elapsed / duration);
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
 
-            float alpha = Mathf.Lerp(
-                startAlpha,
-                endAlpha,
-                smoothT
+            SetBlackAlpha(
+                Mathf.Lerp(startAlpha, endAlpha, smoothT)
             );
-
-            SetBlackAlpha(alpha);
-
-            yield return null;
         }
 
         SetBlackAlpha(endAlpha);
