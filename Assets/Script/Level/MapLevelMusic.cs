@@ -42,7 +42,8 @@ public class MapLevelMusic : MonoBehaviour
     {
         // Additive overlays do not end the music session.
         if (mode != LoadSceneMode.Single ||
-            scene.name == "Map" || scene.name == "Wrecked Ship") return;
+            scene.name == "Map" || scene.name == "Wrecked Ship" ||
+            scene.name == "CutSCene#2") return;
 
         music.Stop();
         SceneManager.sceneLoaded -= OnSceneLoaded;
